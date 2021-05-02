@@ -7,3 +7,7 @@ button,
 select {
   cursor: pointer;
 }
+
+li {
+  list-style: none;
+}

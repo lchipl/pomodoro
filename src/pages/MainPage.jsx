@@ -1,8 +1,9 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import './MainPage.css';
 import { Timer } from '../components/Timer/Timer';
+import { TimerList } from '../components/TimerList/TimerList';
+import { DayHistory } from '../components/DayHistory/DayHistory';
 
 export const MainPage = () =>{
     return(
@@ -11,9 +12,10 @@ export const MainPage = () =>{
         <section    className='SectionWrapper'>
             <div    className='SectionBox'>
                 <Timer />
+                <TimerList />
             </div>
             <div    className='SectionBox'>
-                день
+                <DayHistory />
             </div>
             <div    className='SectionBox'>
                 иконка и цели на день

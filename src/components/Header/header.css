@@ -2,3 +2,17 @@
   height: 35%;
   border: 1px solid red;
 }
+
+.headerList {
+  display: flex;
+}
+
+.headerLoginIn {
+  margin-left: auto;
+  margin-right: 1rem;
+}
+
+.headerReadOnly {
+  margin-left: auto;
+  margin-right: 5px;
+}

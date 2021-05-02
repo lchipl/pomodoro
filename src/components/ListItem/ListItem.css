@@ -1,0 +1,8 @@
+.ListItemWrapper {
+  display: flex;
+  height: 3rem;
+}
+
+.ListItem:nth-child(2) {
+  margin-left: 10%;
+}
