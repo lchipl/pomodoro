@@ -5,11 +5,19 @@ export const Timer = () =>{
     const [stopWatch, setStopWatch] = useState({
         minutes:1,
         seconds:0,
-        active:'active'
+        active:'active',
+        status:0
     })
     const [interval,setInterv] = useState()
     React.useEffect(()=>{
         clearInterval(interval)
+        setStopWatch((state)=>{
+            return{
+                ...state,
+                minutes:1,
+                seconds:0,
+            }
+        })
     },[stopWatch.active])
     const handleTask = (event) =>{
         
@@ -34,7 +42,7 @@ export const Timer = () =>{
         
             if(updSeconds===0){
                 updMinutes--;
-                updSeconds=60
+                updSeconds=59
             }
             else{
                 updSeconds--
@@ -43,7 +51,7 @@ export const Timer = () =>{
             if(updMinutes ===0&&updSeconds===0){
                     
                         updActive = 'done'
-
+                    
                     
                 }
         return setStopWatch({minutes:updMinutes,   seconds:updSeconds,  active:updActive})
@@ -51,11 +59,15 @@ export const Timer = () =>{
     }
     
     const handleStart  =() =>{
-        handleRun();
-       
-       
         
+       
+       
+        clearInterval(interval)
         setInterv(setInterval(handleRun,1000))
+    }
+
+    const handleStop = () =>{
+        clearInterval(interval)
     }
     return(
         <div className='Timer'>
@@ -68,10 +80,13 @@ export const Timer = () =>{
                      {stopWatch.active}
                 </h3>
             </div>
+            
             <div style={{display:'flex'}}>
-                <button  className='btn'    onClick={handleStart}>Старт</button>
-                <button className='btn'>Стоп</button>
+            <button  className='btn'    onClick={handleStart}>Старт</button>
+            <button className='btn' onClick={handleStop}>Стоп</button>
             </div>
+            
+            
             <form>
             <select className='timerSelect'></select>
             <input 
