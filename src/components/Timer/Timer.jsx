@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Timer.css';
 
-export const Timer = () =>{
+export const Timer = (props) =>{
     const [stopWatch, setStopWatch] = useState({
         minutes:1,
         seconds:0,
@@ -9,6 +9,7 @@ export const Timer = () =>{
         status:0
     })
     const [interval,setInterv] = useState()
+    const [listElement, setlistElement] = useState('')
     React.useEffect(()=>{
         clearInterval(interval)
         setStopWatch((state)=>{
@@ -19,10 +20,7 @@ export const Timer = () =>{
             }
         })
     },[stopWatch.active])
-    const handleTask = (event) =>{
-        
-       
-    }
+
     // const handleStart = () =>{
     //  let  timer =   setInterval(()=>
     //         setTask(()=>{
@@ -69,6 +67,21 @@ export const Timer = () =>{
     const handleStop = () =>{
         clearInterval(interval)
     }
+
+    const handleChange = (event) =>{
+        console.log(listElement)
+        setlistElement(event.target.value)
+    }
+    // const handleSubmit = (e) =>{
+    //     e.preventDefault()
+    //     props.setPomidoroItems((state)=>{
+    //         const arr = state;
+    //         return{
+    //             ...state,
+
+    //         }
+    //     })
+    // }
     return(
         <div className='Timer'>
             <div className='timerLogo'>
@@ -80,17 +93,18 @@ export const Timer = () =>{
                      {stopWatch.active}
                 </h3>
             </div>
-            
+            {stopWatch.status === 0?
             <div style={{display:'flex'}}>
             <button  className='btn'    onClick={handleStart}>Старт</button>
             <button className='btn' onClick={handleStop}>Стоп</button>
             </div>
+            : ''
+            }
             
-            
-            <form>
+            <form >
             <select className='timerSelect'></select>
             <input 
-                onChange={handleTask}
+                onChange={handleChange}
                 className='timerInput'
                 type='text'
                 placeholder='что сделал'

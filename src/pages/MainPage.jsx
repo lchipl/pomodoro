@@ -6,13 +6,19 @@ import { TimerList } from '../components/TimerList/TimerList';
 import { DayHistory } from '../components/DayHistory/DayHistory';
 
 export const MainPage = () =>{
+    const [pomodoroItems, setPomidoroItems] = React.useState([
+        {
+            date:'date',
+            value: ' значение'
+        }
+    ])
     return(
         <React.Fragment>
       <Container maxWidth="lg">
         <section    className='SectionWrapper'>
             <div    className='SectionBox'>
-                <Timer />
-                <TimerList />
+                <Timer setPomidoroItems={setPomidoroItems}/>
+                <TimerList items={pomodoroItems}/>
             </div>
             <div    className='SectionBox'>
                 <DayHistory />
