@@ -3,32 +3,14 @@ import './Timer.css';
 
 export const Timer = (props) =>{
     const [stopWatch, setStopWatch] = useState({
-        minutes:1,
-        seconds:0,
+        minutes:0,
+        seconds:10,
         active:'active',
         status:0
     })
     const [interval,setInterv] = useState()
     const [listElement, setlistElement] = useState('')
-    React.useEffect(()=>{
-        clearInterval(interval)
-        setStopWatch((state)=>{
-            return{
-                ...state,
-                minutes:1,
-                seconds:0,
-            }
-        })
-    },[stopWatch.active])
-
-    // const handleStart = () =>{
-    //  let  timer =   setInterval(()=>
-    //         setTask(()=>{
-                
-    //             task.work +=1
-    //         }),1000
-    //     )
-    // }
+  
     let  
     updMinutes = stopWatch.minutes,
     updSeconds = stopWatch.seconds,
@@ -37,21 +19,18 @@ export const Timer = (props) =>{
     
     const handleRun = () =>{
         
-        
-            if(updSeconds===0){
+            if(updMinutes ===0&&updSeconds===0){
+                clearInterval(interval)
+               
+                
+            }
+            else if(updSeconds===0){
                 updMinutes--;
                 updSeconds=59
             }
             else{
                 updSeconds--
             }
-    
-            if(updMinutes ===0&&updSeconds===0){
-                    
-                        updActive = 'done'
-                    
-                    
-                }
         return setStopWatch({minutes:updMinutes,   seconds:updSeconds,  active:updActive})
         
     }
@@ -72,16 +51,22 @@ export const Timer = (props) =>{
         console.log(listElement)
         setlistElement(event.target.value)
     }
-    // const handleSubmit = (e) =>{
-    //     e.preventDefault()
-    //     props.setPomidoroItems((state)=>{
-    //         const arr = state;
-    //         return{
-    //             ...state,
-
-    //         }
-    //     })
-    // }
+    const handleSubmit = (e) =>{
+        e.preventDefault()
+        if(listElement.trim()){
+        props.setPomidoroItems(({arr})=>{
+            const newArr = [...arr];
+            newArr.push({
+                date:Date.now(),
+                value:listElement
+            })
+            setlistElement('')
+            return {
+                arr:newArr
+            }
+        })
+    }
+    }
     return(
         <div className='Timer'>
             <div className='timerLogo'>
@@ -93,17 +78,18 @@ export const Timer = (props) =>{
                      {stopWatch.active}
                 </h3>
             </div>
-            {stopWatch.status === 0?
+            
             <div style={{display:'flex'}}>
             <button  className='btn'    onClick={handleStart}>Старт</button>
             <button className='btn' onClick={handleStop}>Стоп</button>
             </div>
-            : ''
-            }
+           
+           
             
-            <form >
+            <form onSubmit={handleSubmit}>
             <select className='timerSelect'></select>
-            <input 
+            <input
+                value={listElement}
                 onChange={handleChange}
                 className='timerInput'
                 type='text'
